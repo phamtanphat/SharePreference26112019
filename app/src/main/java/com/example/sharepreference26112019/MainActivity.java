@@ -33,12 +33,21 @@ public class MainActivity extends AppCompatActivity {
     private void init() {
         mSharedPreferences = getSharedPreferences("CacheApp",MODE_PRIVATE);
         mEditor = mSharedPreferences.edit();
-        Set<String> arrayName = new HashSet<>();
-        arrayName.add("phat");
-        arrayName.add("phat");
-        arrayName.add("phat");
-        arrayName.add("phat");
-        Log.d("BBB",arrayName.toString());
+    }
+    private void mapview() {
+        mEdtPassword = findViewById(R.id.edittextPassword);
+        mEdtUserName = findViewById(R.id.edittextUsername);
+        mCbSave = findViewById(R.id.checkboxSave);
+        mBtnLogin = findViewById(R.id.buttonLogin);
+
+        String username = mSharedPreferences.getString("username","");
+        String password = mSharedPreferences.getString("password","");
+        Boolean isSaved = mSharedPreferences.getBoolean("isSaved",false);
+
+        mEdtUserName.setText(username);
+        mEdtPassword.setText(password);
+        mCbSave.setChecked(isSaved);
+
     }
 
     private void setListener() {
@@ -50,9 +59,12 @@ public class MainActivity extends AppCompatActivity {
 
                 if (username.equals("phatandroid") && password.equals("123456")){
                     Toast.makeText(MainActivity.this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
-//                    if (mCbSave.isChecked()){
-//                        mEditor.put
-//                    }
+                    if (mCbSave.isChecked()){
+                        mEditor.putString("username",username);
+                        mEditor.putString("password",password);
+                        mEditor.putBoolean("isSaved",true);
+                        mEditor.commit();
+                    }
 
                 }else{
                     Toast.makeText(MainActivity.this, "Sai rồi", Toast.LENGTH_SHORT).show();
@@ -61,10 +73,5 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void mapview() {
-        mEdtPassword = findViewById(R.id.edittextPassword);
-        mEdtUserName = findViewById(R.id.edittextUsername);
-        mCbSave = findViewById(R.id.checkboxSave);
-        mBtnLogin = findViewById(R.id.buttonLogin);
-    }
+
 }
