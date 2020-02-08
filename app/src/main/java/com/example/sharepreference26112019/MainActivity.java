@@ -64,6 +64,9 @@ public class MainActivity extends AppCompatActivity {
                         mEditor.putString("password",password);
                         mEditor.putBoolean("isSaved",true);
                         mEditor.commit();
+                    }else{
+                        mEditor.clear();
+                        mEditor.commit();
                     }
 
                 }else{
